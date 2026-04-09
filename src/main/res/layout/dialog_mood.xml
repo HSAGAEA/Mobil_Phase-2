@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@color/white">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Daily Check-in"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/sti_blue"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/etStress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Stress Level (1-10)"
+        android:inputType="number"
+        android:layout_marginBottom="8dp"/>
+
+    <EditText
+        android:id="@+id/etSleep"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Sleep Hours (0-12)"
+        android:inputType="number"
+        android:layout_marginBottom="8dp"/>
+
+    <EditText
+        android:id="@+id/etMood"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Mood Level (1-5)"
+        android:inputType="number"
+        android:layout_marginBottom="8dp"/>
+
+    <EditText
+        android:id="@+id/etCoping"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Coping Level (1-5)"
+        android:inputType="number"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/btnCalculate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Calculate &amp; Save"
+        android:backgroundTint="@color/sti_blue"
+        android:textColor="@color/white"/>
+</LinearLayout>
