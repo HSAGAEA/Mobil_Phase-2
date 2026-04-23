@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_bg"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:id="@+id/rootLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- Status & Score Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:cardCornerRadius="12dp"
+                android:layout_marginEnd="8dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp"
+                    android:gravity="center">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Focus Score"
+                        android:textSize="12sp"
+                        android:textColor="@color/gray_text"/>
+                    <TextView
+                        android:id="@+id/tvFocusScore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0%"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/sti_blue"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:cardCornerRadius="12dp"
+                android:layout_marginStart="8dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp"
+                    android:gravity="center">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Status"
+                        android:textSize="12sp"
+                        android:textColor="@color/gray_text"/>
+                    <TextView
+                        android:id="@+id/tvUserStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fresh"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="#4CAF50"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+        <!-- Timer Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="4dp"
+            app:strokeWidth="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="32dp">
+
+                <TextView
+                    android:id="@+id/tvTimerLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Focus Session"
+                    android:textColor="@color/gray_text"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp">
+
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/timerProgress"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        app:indicatorSize="200dp"
+                        app:trackThickness="12dp"
+                        app:indicatorColor="@color/sti_blue"
+                        app:trackColor="@color/gray_bg"
+                        android:progress="100"/>
+
+                    <TextView
+                        android:id="@+id/tvTimer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="25:00"
+                        android:textColor="@color/sti_blue"
+                        android:textSize="48sp"
+                        android:textStyle="bold" />
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:gravity="center">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnStartPause"
+                        android:layout_width="120dp"
+                        android:layout_height="56dp"
+                        android:backgroundTint="@color/sti_blue"
+                        android:text="Start"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        app:cornerRadius="16dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnReset"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="120dp"
+                        android:layout_height="56dp"
+                        android:layout_marginStart="16dp"
+                        android:text="Reset"
+                        android:textAllCaps="false"
+                        android:textColor="@color/sti_blue"
+                        app:cornerRadius="16dp"
+                        app:strokeColor="@color/sti_blue" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Daily Progress Bar -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="16dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+                <TextView
+                    android:id="@+id/tvDailyProgress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Daily Goal: 0/8 sessions"
+                    android:textSize="14sp"
+                    android:textColor="@color/gray_text"
+                    android:layout_marginBottom="8dp"/>
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/dailyProgressBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:trackThickness="8dp"
+                    app:trackCornerRadius="4dp"
+                    app:indicatorColor="@color/sti_yellow"
+                    android:progress="0"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="2dp"
+            app:strokeColor="@color/sti_yellow"
+            app:strokeWidth="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@android:drawable/ic_dialog_info"
+                        app:tint="@color/sti_blue" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="AI Insights"
+                        android:textColor="@color/sti_blue"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvAiAdvice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Complete your daily mood check-in to receive personalized success tips from Gemini AI."
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:lineSpacingExtra="4dp"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnMoodCheck"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/sti_blue"
+            android:text="Daily Mood Check-in"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:cornerRadius="16dp"
+            app:icon="@android:drawable/ic_menu_edit"
+            app:iconGravity="textStart"
+            app:iconPadding="12dp"
+            app:iconTint="@color/sti_yellow" />
+
+    </LinearLayout>
+</ScrollView>

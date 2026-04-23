@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="sti_blue">#0033A0</color>
+    <color name="sti_blue_dark">#002677</color>
+    <color name="sti_yellow">#FFD100</color>
+    <color name="sti_yellow_light">#FFF0A3</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#1A1A1A</color>
+    <color name="gray_bg">#F8F9FA</color>
+    <color name="gray_light">#E9ECEF</color>
+    <color name="gray_text">#6C757D</color>
+    <color name="error_red">#DC3545</color>
+    <color name="success_green">#28A745</color>
+</resources>

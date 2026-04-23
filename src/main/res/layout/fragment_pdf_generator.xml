@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#FAFAFA">
+
+    <Button
+        android:id="@+id/btnUploadPdf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select PDF File"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+
+    <TextView
+        android:id="@+id/tvFileName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No file selected"
+        android:gravity="center"
+        android:padding="8dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <EditText
+            android:id="@+id/etStartPage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Start Page (opt)"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/etEndPage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="End Page (opt)"
+            android:inputType="number" />
+    </LinearLayout>
+
+    <Spinner
+        android:id="@+id/spinnerDifficulty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:entries="@array/difficulty_levels" />
+
+    <Button
+        android:id="@+id/btnGenerate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Generate Reviewer &amp; Quiz"
+        android:layout_marginTop="16dp"
+        android:enabled="false"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"/>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"/>
+
+</LinearLayout>
