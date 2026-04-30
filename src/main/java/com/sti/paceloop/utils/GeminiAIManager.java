@@ -8,6 +8,7 @@ import com.google.ai.client.generativeai.GenerativeModel;
 import com.google.ai.client.generativeai.java.GenerativeModelFutures;
 import com.google.ai.client.generativeai.type.Content;
 import com.google.ai.client.generativeai.type.GenerateContentResponse;
+import com.google.ai.client.generativeai.type.Part;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.io.ByteArrayOutputStream;
@@ -18,13 +19,16 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class GeminiAIManager {
-    private static final String API_KEY = "AIzaSyCp2uTq8B4eJq6gYAsjEmcDfoMam10_WjE";
+    private static final String API_KEY = "AIzaSyCp2uTq8B4eJq6gYAsjEmcDfoMam10_WjE"; 
     private GenerativeModelFutures model;
-    private final ExecutorService aiExecutor = Executors.newCachedThreadPool(); // OPTIMIZATION
+    private final ExecutorService aiExecutor = Executors.newCachedThreadPool();
 
     public GeminiAIManager() {
         try {
-            GenerativeModel gm = new GenerativeModel("gemini-1.5-flash", API_KEY);
+            GenerativeModel gm = new GenerativeModel.Builder()
+                    .setModelName("gemini-1.5-flash")
+                    .setApiKey(API_KEY)
+                    .build();
             model = GenerativeModelFutures.from(gm);
         } catch (Exception e) {
             Log.e("GeminiAI", "Initialization failed", e);
@@ -57,7 +61,6 @@ public class GeminiAIManager {
         generateText(prompt, callback);
     }
 
-    // OPTIMIZATION: Advanced prompt engineering for weighted dynamic thresholds
     public void detectFatigue(int idleTimeSeconds, int interactionCount, int mistakes, GeminiCallback callback) {
         if (model == null) {
             callback.onError(new Exception("Gemini model not initialized"));
@@ -100,42 +103,44 @@ public class GeminiAIManager {
             return;
         }
 
-        try (InputStream stream = context.getContentResolver().openInputStream(pdfUri)) {
-            if (stream == null) {
-                callback.onError("Could not open PDF file");
-                return;
-            }
-
-            byte[] pdfBytes = readBytes(stream);
-
-            String promptText = "Act as an expert educator. Based on the provided PDF content, generate a highly structured study guide.\n" +
-                    "Difficulty: " + difficulty + "\n" +
-                    "Please format your exact response with these three exact headers: [REVIEWER], [QUIZ], [ANSWERS].";
-
-            Content content = new Content.Builder()
-                    .addBlob("application/pdf", pdfBytes)
-                    .addText(promptText)
-                    .build();
-
-            ListenableFuture<GenerateContentResponse> responseFuture = model.generateContent(content);
-
-            responseFuture.addListener(() -> {
-                try {
-                    GenerateContentResponse result = responseFuture.get();
-                    String responseText = result.getText();
-                    if (responseText == null) {
-                        callback.onError("Empty response from AI");
-                    } else {
-                        parseAndReturnResponse(responseText, callback);
-                    }
-                } catch (Exception e) {
-                    callback.onError(e.getMessage());
+        aiExecutor.execute(() -> {
+            try (InputStream stream = context.getContentResolver().openInputStream(pdfUri)) {
+                if (stream == null) {
+                    callback.onError("Could not open PDF file");
+                    return;
                 }
-            }, aiExecutor);
 
-        } catch (Exception e) {
-            callback.onError("Error reading PDF: " + e.getMessage());
-        }
+                byte[] pdfBytes = readBytes(stream);
+
+                String promptText = "Act as an expert educator. Based on the provided PDF content, generate a highly structured study guide.\n" +
+                        "Difficulty: " + difficulty + "\n" +
+                        "Please format your exact response with these three exact headers: [REVIEWER], [QUIZ], [ANSWERS].";
+
+                Content content = new Content.Builder()
+                        .addPart(Part.fromBytes(pdfBytes, "application/pdf"))
+                        .addText(promptText)
+                        .build();
+
+                ListenableFuture<GenerateContentResponse> responseFuture = model.generateContent(content);
+
+                responseFuture.addListener(() -> {
+                    try {
+                        GenerateContentResponse result = responseFuture.get();
+                        String responseText = result.getText();
+                        if (responseText == null) {
+                            callback.onError("Empty response from AI");
+                        } else {
+                            parseAndReturnResponse(responseText, callback);
+                        }
+                    } catch (Exception e) {
+                        callback.onError(e.getMessage());
+                    }
+                }, aiExecutor);
+
+            } catch (Exception e) {
+                callback.onError("Error reading PDF: " + e.getMessage());
+            }
+        });
     }
 
     private byte[] readBytes(InputStream inputStream) throws IOException {

@@ -95,7 +95,8 @@ public class PdfGeneratorFragment extends Fragment {
                 answerResult = material.answers;
                 
                 if (viewPager.getAdapter() != null) {
-                    viewPager.getAdapter().notifyDataSetChanged();
+                    //viewPager.getAdapter().notifyDataSetChanged();
+                    ((ViewPagerAdapter) viewPager.getAdapter()).updateContentIds(reviewerResult, quizResult, answerResult);
                 }
                 Toast.makeText(getContext(), "Generation Complete!", Toast.LENGTH_SHORT).show();
             }
@@ -159,6 +160,11 @@ public class PdfGeneratorFragment extends Fragment {
     }
 
     private class ViewPagerAdapter extends FragmentStateAdapter {
+        
+        private long id0 = 0;
+        private long id1 = 1;
+        private long id2 = 2;
+
         public ViewPagerAdapter(@NonNull Fragment fragment) {
             super(fragment);
         }
@@ -177,17 +183,28 @@ public class PdfGeneratorFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return 3;
+            return 3; // We always have 3 tables
         }
 
         @Override
         public long getItemId(int position) {
-            return (long) position + (reviewerResult + quizResult + answerResult).hashCode();
+            switch (position) {
+                case 0: return id0;
+                case 1: return id1;
+                case 2: return id2;
+                default: return 0;
+            }
         }
 
         @Override
         public boolean containsItem(long itemId) {
-            return true;
+            return itemId == id0 || itemId == id1 || itemId == id2;
+        }
+
+        public void updateContentIds(String reviewer, String quiz, String answers) {
+            id0 = 0L + reviewer.hashCode();
+            id1 = 1L + quiz.hashCode();
+            id2 = 2L + answers.hashCode();
         }
     }
 }

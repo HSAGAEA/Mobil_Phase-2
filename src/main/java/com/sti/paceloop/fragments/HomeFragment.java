@@ -156,7 +156,7 @@ public class HomeFragment extends Fragment {
                 if (isTimerRunning && isFocusMode) {
                     idleSeconds++;
                     // Soft pause instead of hard stop on deep idle
-                    if (idleSeconds >= 120) {
+                    if (idleSeconds >= 300) {
                         pauseTimer(true);
                         Toast.makeText(getContext(), "Session paused due to prolonged inactivity", Toast.LENGTH_LONG).show();
                     } else if (idleSeconds % 45 == 0) { // Query AI sparingly
